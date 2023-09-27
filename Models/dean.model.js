@@ -26,7 +26,13 @@ const deanSchema = new mongoose.Schema({
             },
             message: 'Password and confirm Password does not match!'
         }  
-    }
+    },
+    slots: {type: [{
+        student: { type: mongoose.Schema.Types.ObjectId, ref: 'Student',default: undefined },
+        slot: { type: Date },
+        status: { type: String, enum: ['pending', 'completed'], default: 'pending' },
+        availability: {type: String, enum: ['available', 'booked'], default: 'available'}
+    }],default:undefined}
 })
 
 deanSchema.pre('save',async function(next){
